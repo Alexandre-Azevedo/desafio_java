@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>br.gov.bnb.s634</groupId>
+		<artifactId>s634-sicor</artifactId>
+		<version>1.0.46</version>
+	</parent>
+	<artifactId>s634-sicor-web</artifactId>
+	<packaging>war</packaging>
+
+
+	<properties>
+		<libs.ear>${project.basedir}${file.separator}..${file.separator}s634-sicor-ear${file.separator}lib${file.separator}</libs.ear>
+		<libs.war>${project.basedir}${file.separator}src${file.separator}main${file.separator}webapp${file.separator}WEB-INF${file.separator}lib${file.separator}</libs.war>
+	</properties>
+
+	<dependencies>
+
+		<!-- EJB -->
+		<dependency>
+			<groupId>br.gov.bnb.s634</groupId>
+			<artifactId>s634-sicor-ejb</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+		<!-- Layout de tela -->
+		<!-- <dependency>
+			<groupId>br.gov.bnb.s095</groupId>
+			<artifactId>s095-layout</artifactId>
+			<version>2.0.0-SNAPSHOT</version>
+		</dependency> -->
+		
+        <dependency>
+            <groupId>br.gov.bnb.s095</groupId>
+            <artifactId>s095-padrao-visual</artifactId>
+            <version>1.3.1</version>
+        </dependency>
+
+		<dependency>
+			<groupId>org.primefaces.themes</groupId>
+			<artifactId>bootstrap</artifactId>
+			<version>1.0.10</version>
+		</dependency>
+
+		<dependency>
+			<groupId>br.gov.bnb.s095</groupId>
+			<artifactId>bnb-seguranca</artifactId>
+			<version>1.18.0</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- Healthcheck -->
+		<dependency>
+			<groupId>br.gov.bnb</groupId>
+			<artifactId>s095-bnb-healthcheck</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- BNB Utilitarios -->
+		<dependency>
+			<groupId>br.gov.bnb.s095</groupId>
+			<artifactId>bnb-utilitarios</artifactId>
+			<version>1.16</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- Primefaces -->
+		<dependency>
+			<groupId>org.primefaces</groupId>
+			<artifactId>primefaces</artifactId>
+			<version>6.2</version>
+		</dependency>
+
+		<!-- Omnifaces / ViewScoped -->
+		<dependency>
+			<groupId>org.omnifaces</groupId>
+			<artifactId>omnifaces</artifactId>
+			<version>1.8.3</version>
+		</dependency>
+		
+		<!-- Java Lib do SINC -->
+		<dependency>
+			<groupId>br.gov.bnb.s035</groupId>
+			<artifactId>s035-java-lib</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- Log4j -->
+		<dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>net.sf.jasperreports</groupId>
+            <artifactId>jasperreports</artifactId>
+        </dependency>
+
+        <dependency>
+           <groupId>net.sf.jasperreports</groupId>
+           <artifactId>jasperreports-fonts</artifactId>
+           <version>5.6.1</version>
+        </dependency>
+
+	</dependencies>
+</project>
