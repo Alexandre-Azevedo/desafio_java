@@ -1,0 +1,130 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:decorate template="/decorators/cards.xhtml">
+
+		<ui:define name="title">#{msg.ttl_consultar_extrato_operacoes_beneficiario}</ui:define>
+
+		<!-- < h : form id="formExtratoOperacoesBeneficiario" class="ui form"  style="margin-top:40px">-->
+			
+			<div id="filtros">
+
+				<div class="four fields">
+					<div class="field">
+						<h:outputLabel for="cpfCnpj" value="#{msg.lb_nr_cpf_cnpj}" />
+						<p:inputText id="cpfCnpj" value="#{extratoOperacoesBeneficiarioMB.cpfCnpj}"
+							 maxlength="14" />
+					</div>
+				</div>
+			</div>
+			<div class="right aligned">
+				<p:commandLink styleClass="ui orange labeled icon button" 
+					update="formExtratoOperacoes:extratosOperacoesBeneficiariosTable botaoEmitir growl"
+					actionListener="#{extratoOperacoesBeneficiarioMB.consultarExtratos}" process="@form"
+					oncomplete="PF('extratosOperacoesBeneficiarios').getPaginator().setPage(0);">
+					<f:ajax event="click" listener="#{extratoOperacoesBeneficiarioMB.setEmitirDisable(false)}" render="botaoEmitir" />
+					<i class="search icon"></i> #{msg.bt_consultar}
+           		</p:commandLink>
+           		<p:commandLink styleClass="ui green labeled icon button" 
+           			id="botaoEmitir"
+           			disabled="#{extratoOperacoesBeneficiarioMB.emitirDisable}"
+           			onclick="return confirm('Deseja realmente realizar!')"
+           			update="@form">
+					<i class="icon add square"></i> #{msg.bt_emitir}
+           		</p:commandLink>
+				<p:commandLink styleClass="ui button icon labeled"
+					actionListener="#{extratoOperacoesBeneficiarioMB.limpar}"
+					update="@form">
+					<i class="erase icon"></i> #{msg.bt_limpar}
+           		</p:commandLink>
+			</div>
+			<br />
+			<!-- </h:form> -->
+			<div class="field">
+				<div>
+					<p:dataTable value="#{extratoOperacoesBeneficiarioMB.operacoesExtratoBeneficiarioTO}" var="row"  
+						emptyMessage="#{msg.lb_nenhum_registro_encontrado}" id="extratosOperacoesBeneficiariosTable" 
+						rows="5" widgetVar="extratosOperacoesBeneficiarios" paginator="true"
+						paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+						currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
+						rowsPerPageTemplate="5,10,15" scrollWidth="1100" >
+						
+						
+
+						<p:column headerText="#{msg.lb_cpfcnpj_cliente}" width="15%"
+							style="text-align: center !important; height: 75px">
+							<h:outputText value="#{row.cpfCNPJCliente}" />
+						</p:column>
+
+						<p:column headerText="#{msg.lb_qtd_cedulas}" width="10%"
+							style="text-align: center !important"
+							filterBy="#{row.quantidadeCedulas}"
+							sortBy="#{row.quantidadeCedulas}">
+							<h:outputText value="#{row.quantidadeCedulas}" />
+						</p:column>
+						<p:column headerText="#{msg.lb_data_retorno_bacen}" width="15%"
+							style="text-align: center !important"
+							filterBy="#{row.dataRetornoBacen}"
+							filterFunction="#{extratoOperacoesBeneficiarioMB.filtroData}"
+							sortBy="#{row.dataRetornoBacen}">
+							<h:outputText value="#{row.dataRetornoBacen}" >
+								<f:convertDateTime pattern="dd/MM/yyyy hh:mm:ss" locale="pt_BR" timeZone="America/Fortaleza"/>
+							</h:outputText>
+						</p:column>
+						<p:column headerText="#{msg.lb_data_movimento}" width="15%"
+							style="text-align: center !important"
+							filterBy="#{row.dataMovimento}"
+							filterFunction="#{extratoOperacoesBeneficiarioMB.filtroData}"
+							sortBy="#{row.dataMovimento}">
+							<h:outputText value="#{row.dataMovimento}">
+								<f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR" timeZone="America/Fortaleza"/>
+							</h:outputText>
+						</p:column>
+						<p:column headerText="#{msg.lb_acao}" width="8%" style="text-align: center !important" >
+							<p:commandLink styleClass="ui button default" actionListener="#{extratoOperacoesBeneficiarioMB.prepararVisualizarFormulario(row)}" 
+							            			update="@form" >
+								<i class="icon unhide"></i>
+							</p:commandLink>
+						</p:column>
+						
+					</p:dataTable>
+				</div>
+			</div>
+
+		<!-- < / h :form> -->
+
+		<script type="text/javascript" >
+	    	PrimeFaces.locales['pt'] = {
+	            closeText: 'Fechar',
+	            prevText: 'Anterior',
+	            nextText: 'Próximo',
+	            currentText: 'Começo',
+	            monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
+	            monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun', 'Jul','Ago','Set','Out','Nov','Dez'],
+	            dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'],
+	            dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'],
+	            dayNamesMin: ['D','S','T','Q','Q','S','S'],
+	            weekHeader: 'Semana',
+	            firstDay: 0,
+	            isRTL: false,
+	            showMonthAfterYear: false,
+	            yearSuffix: '',
+	            timeOnlyTitle: 'Só Horas',
+	            timeText: 'Tempo',
+	            hourText: 'Hora',
+	            minuteText: 'Minuto',
+	            secondText: 'Segundo',
+	            currentText: 'Data Atual',
+	            ampm: false,
+	            month: 'Mês',
+	            week: 'Semana',
+	            day: 'Dia',
+	            allDayText : 'Todo Dia'
+	        };
+    	</script>
+	</ui:decorate>
+
+</ui:composition>
